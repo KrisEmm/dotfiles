@@ -1,0 +1,63 @@
+#!/usr/bin/env zsh
+
+PURIFY_THEME_PWD_MODE=${PURIFY_THEME_PWD_MODE:-"relative"} # full, short, relative
+
+ [[ $(echotc Co) -gt 100 ]] && support_color_tones=true || support_color_tones=false
+
+status_icon_ok="❯"
+status_icon_ko="❯"
+
+status_icon_ok_color="green"
+status_icon_ko_color="red"
+
+pwd_color="blue"
+
+git_no_changes_status="✓"
+git_dirty_status="✗"
+
+git_branch_color="green"
+git_dirty_status_color="yellow"
+git_no_changes_status_color="green"
+git_on_branch_color="cyan"
+
+[[ $support_color_tones = true ]] && ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8' || ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=magenta'
+
+prompt_purify_pwd() {
+  case "$PURIFY_THEME_PWD_MODE" in
+    short) local -r prompt_dir=$("$DOTLY_PATH/bin/dot" core short_pwd) ;;
+    full) local -r prompt_dir="$PWD" ;;
+    relative) local -r prompt_dir=$(print -rD "$PWD") ;;
+  esac
+
+  print -n "%F{$pwd_color}${prompt_dir}"
+}
+
+prompt_purify_git() {
+  [[ -n ${git_info} ]] && print -n "%F{$git_on_branch_color} on${(e)git_info[prompt]}"
+}
+
+prompt_purify_precmd() {
+  (( ${+functions[git-info]} )) && git-info
+}
+
+prompt_purify_setup() {
+  local prompt_purify_symbol_and_status="%(?:%F{$status_icon_ok_color}$status_icon_ok:%F{$status_icon_ko_color}$status_icon_ko)"
+
+  autoload -Uz add-zsh-hook && add-zsh-hook precmd prompt_codely_precmd
+
+  prompt_opts=(cr percent sp subst)
+
+  zstyle ':zim:git-info:branch' format "%F{$git_branch_color}%b"
+  zstyle ':zim:git-info:commit' format "%c"
+  zstyle ':zim:git-info:clean' format "%F{$git_no_changes_status_color}$git_no_changes_status"
+  zstyle ':zim:git-info:dirty' format "%F{$git_dirty_status_color}$git_dirty_status"
+  zstyle ':zim:git-info:keys' format "prompt" " %F{cyan}%b%c %C%D"
+
+  PS1="
+  \${prompt_purify_pwd}\${prompt_purify_git}%f
+  ${prompt_purify_symbol_and_status} "
+
+  RPS1=''
+}
+
+prompt_purify_setup "${@}"

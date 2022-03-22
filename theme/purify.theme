@@ -1,0 +1,9 @@
+[Scheme]
+Name=Purify
+ColorCursorUseDefault=FALSE
+ColorSelectionUseDefault=FALSE
+ColorCursor=#F2F2F2
+ColorSelection=#FF875F
+ColorForeground=#F2F2F2
+ColorBackground=#313440 
+ColorPalette=#282C34;#FF6059;#5FFF87;#FFFF87;#5FAFFF;#AF87FF;#7CE7E9;#FAFAFA;#282C34;#FF6059;#5FFF87;#FFFF87;#5FAFFF;#AF87FF;#7CE7E9;#FAFAFA
