@@ -9,10 +9,11 @@ export CODELY_THEME_PWD_MODE="short" # full, short, home_relative
 # ------------------------------------------------------------------------------
 # Languages
 # ------------------------------------------------------------------------------
-export JAVA_HOME='/Library/Java/JavaVirtualMachines/amazon-corretto-15.jdk/Contents/Home'
-export GEM_HOME="$HOME/.gem"
-export GOPATH="$HOME/.go"
-
+export JAVA_HOME='/usr/lib/jvm/java-11.0.12-OpenJDK-Eclipse-Temurin'
+export MAVEN_HOME='/opt/maven'
+export M2_HOME='/opt/maven'
+export GRADLE_HOME='/opt/gradle'
+export SPRING_HOME='/opt/spring'
 # ------------------------------------------------------------------------------
 # Apps
 # ------------------------------------------------------------------------------
@@ -32,8 +33,10 @@ export path=(
   "$DOTLY_PATH/bin"
   "$DOTFILES_PATH/bin"
   "$JAVA_HOME/bin"
-  "$GEM_HOME/bin"
-  "$GOPATH/bin"
+  "$MAVEN_HOME/bin"
+  "$M2_HOME/bin"
+  "$GRADLE_HOME/bin"
+  "$SPRING_HOME/bin"
   "$HOME/.cargo/bin"
   "/usr/local/opt/ruby/bin"
   "/usr/local/opt/python/libexec/bin"
